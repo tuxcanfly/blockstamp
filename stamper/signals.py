@@ -45,7 +45,8 @@ def stamp_command(fd):
         with io.BytesIO() as timestamp_fd:
             ctx = StreamSerializationContext(timestamp_fd)
             file_timestamp.serialize(ctx)
-            return timestamp_fd
+            timestamp_fd.seek(0)
+            return timestamp_fd.read()
     except IOError as exp:
         logging.error("Failed to create timestamp: %s" % exp)
         return

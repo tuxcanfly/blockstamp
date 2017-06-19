@@ -6,7 +6,10 @@ class WebPage(models.Model):
     title = models.CharField(max_length=100, blank=True, default="")
     url = models.URLField()
     body = models.TextField()
-    signature = models.CharField(max_length=64)
+    signature = models.BinaryField()
 
     class Meta:
         ordering = ('created',)
+
+    def __str__(self):
+        return self.url
