@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js --progress --colors",
+    "build-production": "webpack --config webpack.prod.config.js --progress --colors",
+    "watch": "webpack --config webpack.config.js --watch --colors"
   },
   "repository": {
     "type": "git",

@@ -6,13 +6,13 @@ class WebPageSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     url = serializers.URLField()
-    body = serializers.CharField()
-    signature = serializers.CharField()
-    status = serializers.CharField(source='get_status_display')
+    body = serializers.CharField(required=False)
+    signature = serializers.CharField(required=False)
+    status = serializers.CharField(required=False, source='get_status_display')
 
 
     def create(self, validated_data):
-        return Snippet.objects.create(**validated_data)
+        return WebPage.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)

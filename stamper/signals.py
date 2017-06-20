@@ -2,6 +2,10 @@ import io
 import os
 import sys
 
+import logging
+
+from lxml.html import fromstring
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from stamper.models import WebPage
@@ -22,6 +26,8 @@ calendar_urls = [
         'https://a.pool.eternitywall.com',
 ]
 
+logger = logging.getLogger(__name__)
+
 
 def stamp_command(fd):
     # Create initial commitment ops for all files
@@ -30,7 +36,7 @@ def stamp_command(fd):
     try:
         file_timestamp = DetachedTimestampFile.from_fd(OpSHA256(), fd)
     except OSError as exp:
-        logging.error("Could not read :%s" % exp)
+        logger.error("Could not read :%s" % exp)
         return
 
     # Add nonce
@@ -48,20 +54,25 @@ def stamp_command(fd):
             timestamp_fd.seek(0)
             return timestamp_fd.read()
     except IOError as exp:
-        logging.error("Failed to create timestamp: %s" % exp)
+        logger.error("Failed to create timestamp: %s" % exp)
         return
 
 
 @receiver(post_save, sender=WebPage)
 def page_save_handler(sender, instance, created, **kwargs):
     if created:
-        url, body = archiveis.capture(instance.url)
-        with io.BytesIO() as fd:
-            fd.write(body.content)
-            ts = stamp_command(fd)
+        try:
+            url, body = archiveis.capture(instance.url)
+            instance.title = fromstring(body.content).findtext('.//title')
+            instance.body = body.content
 
-        instance.body = body.content
-        if ts != None:
-            instance.signature = ts
+            with io.BytesIO() as fd:
+                fd.write(body.content)
+                ts = stamp_command(fd)
 
+            if ts != None:
+                instance.signature = ts
+
+        except Exception as e:
+            logger.error("Failed to stamp url %s: %s" % (instance.url, e))
         instance.save()
