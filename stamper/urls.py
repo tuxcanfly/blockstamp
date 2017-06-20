@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from stamper import views
 
 urlpatterns = [

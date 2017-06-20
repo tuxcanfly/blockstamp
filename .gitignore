@@ -1,1 +1,3 @@
 *.sqlite3
+webpack-stats.json
+assets/bundles
