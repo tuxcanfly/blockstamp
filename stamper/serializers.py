@@ -8,6 +8,7 @@ class WebPageSerializer(serializers.Serializer):
     url = serializers.URLField()
     body = serializers.CharField()
     signature = serializers.CharField()
+    status = serializers.CharField(source='get_status_display')
 
 
     def create(self, validated_data):
