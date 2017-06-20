@@ -65,7 +65,7 @@ class PageList extends React.Component {
         this.state = {};
     }
 
-    loadPagesFromServer(){
+    loadPagesFromServer() {
         $.ajax({
             url: this.props.url,
             datatype: 'json',
@@ -84,7 +84,7 @@ class PageList extends React.Component {
         if (this.state.data) {
             console.log('DATA!')
             var pageNodes = this.state.data.map(function(page){
-                return <li key={page.id}> {page.title} </li>
+                return <li key={page.id}><Link to="/page/" + {page.id}>{page.title}</Link></li>
             })
         }
         return (
@@ -92,6 +92,43 @@ class PageList extends React.Component {
                 <h1>Recent stamps</h1>
                 <ul>
                     {pageNodes}
+                </ul>
+            </div>
+        )
+    }
+}
+
+class PageList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    loadPageFromServer() {
+        $.ajax({
+            url: this.props.url,
+            datatype: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this)
+        })
+    }
+
+    componentDidMount() {
+        this.loadPageFromServer();
+    }
+
+    render() {
+        if (this.state.data) {
+            console.log('DATA!')
+            var page = this.state.data;
+        }
+        return (
+            <div>
+                <h1>{page.title}</h1>
+                <ul>
+                    {page.content}
                 </ul>
             </div>
         )
