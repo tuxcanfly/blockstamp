@@ -12,10 +12,6 @@ class PageForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    clearForm() {
-        document.getElementById("url").clear();
-    }
-
     handleChange(event) {
         this.setState({url: event.target.value});
     }
@@ -34,7 +30,7 @@ class PageForm extends React.Component {
             data: data
         })
         .done(function(data) {
-            this.clearForm()
+            document.location = "/#/page/" + data.id;
         })
         .fail(function(jqXhr) {
             console.log('failed to register');
@@ -90,6 +86,9 @@ class PageList extends React.Component {
         }
         return (
             <div>
+                <h1>New Stamp</h1>
+                <Link to={`/page/new`}>Create</Link>
+                <br />
                 <h1>Recent stamps</h1>
                 <ul>
                     {pageNodes}
@@ -120,16 +119,43 @@ class PageDetail extends React.Component {
         this.loadPageFromServer();
     }
 
+    save(data, filename) {
+        if(!data) {
+            return;
+        }
+
+        if(!filename) filename = ''
+
+        if(typeof data === "object"){
+            data = JSON.stringify(data, undefined, 4)
+        }
+
+        var blob = new Blob([data], {type: 'text/html'}),
+            e    = document.createEvent('MouseEvents'),
+            a    = document.createElement('a')
+
+        a.download = filename
+        a.href = window.URL.createObjectURL(blob)
+        a.dataset.downloadurl =  ['text/html', a.download, a.href].join(':')
+        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        a.dispatchEvent(e)
+    }
+
     render() {
         if (!this.state.data) { return <div /> }
         var page = this.state.data;
         return (
             <div>
                 <h1>{page.title}</h1>
-                <ul>
-                    {page.url}
-                </ul>
-                <iframe id="iframe" srcDoc={page.body} />
+                <label>Status: </label><span>{page.status}</span>
+                <br />
+                <br />
+                <a href={page.url} rel="nofollow" target="_blank">{page.url}</a>
+                <br />
+                <button onClick={  ()=> { this.save(page.body, page.id+".html") } }>Download</button>
+                <br />
+                <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download signature</a>
+                <iframe id="iframe" height="900px" width="100%" srcDoc={page.body} />
             </div>
         )
     }
