@@ -150,17 +150,17 @@ class PageDetail extends React.Component {
         var page = this.state.data;
         return (
             <div>
-                <h1>{page.title}</h1>
-                <label>Status: </label><span>{page.status}</span>
-                <br />
-                <br />
-                <a href={page.url} rel="nofollow" target="_blank">{page.url}</a>
-                <br />
-                <button onClick={  ()=> { this.save(page.body, page.id+".html") } }>Download File</button>
-                <br />
-                <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download Timestamp</a>
-                <br />
-                <span>This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.</span>
+                <h1>BlockStamp</h1>
+                <h3><a href={page.url} rel="nofollow" target="_blank">{page.title}</a></h3>
+                <fieldset>
+                <p>
+                    <label>Status: <bold>{page.status}</bold></label>
+                    <button type="button" onClick={  ()=> { this.save(page.body, page.id+".html") } }>Download File</button>
+                    <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download Timestamp</a>
+                </p>
+                </fieldset>
+                <p>This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.</p>
+                <hr/>
                 <iframe id="iframe" srcDoc={page.body} />
             </div>
         )
