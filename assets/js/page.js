@@ -40,13 +40,15 @@ class PageForm extends React.Component {
     render() {
         return (
             <div>
-                <h1>New Stamp</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="url">
-                        URL:
-                    </label>
-                    <input id="url" name="url" type="text" value={this.state.url} onChange={this.handleChange} />
-                    <input type="submit" value="Submit" />
+                    <fieldset id="forms__html5">
+                        <legend>New Page</legend>
+                        <p>
+                            <label for="url">URL</label>
+                            <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" size="80" />
+                        </p>
+                        <p><button type="submit">Stamp</button></p>
+                    </fieldset>
                 </form>
             </div>
         );
@@ -86,10 +88,12 @@ class PageList extends React.Component {
         }
         return (
             <div>
-                <h1>New Stamp</h1>
-                <Link to={`/page/new`}>Create</Link>
-                <br />
-                <h1>Recent stamps</h1>
+                <h1>BlockStamp</h1>
+                <p>
+                    BlockStamp timestamps a url archive using the blockchain.
+                </p>
+                <PageForm url="/api/pages/" />
+                <h1>Recently confirmed</h1>
                 <ul>
                     {pageNodes}
                 </ul>
@@ -157,7 +161,7 @@ class PageDetail extends React.Component {
                 <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download Timestamp</a>
                 <br />
                 <span>This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.</span>
-                <iframe id="iframe" height="900px" width="100%" srcDoc={page.body} />
+                <iframe id="iframe" srcDoc={page.body} />
             </div>
         )
     }

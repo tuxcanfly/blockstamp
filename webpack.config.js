@@ -41,6 +41,17 @@ module.exports = {
                     // specify that we will be dealing with React code
                     presets: ['react']
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000
+                }
             }
         ]
     },
@@ -49,9 +60,6 @@ module.exports = {
         // tells webpack where to look for modules
         modules: ['node_modules'],
         // extensions that should be used to resolve modules
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.css']
     }
 }
-
-
-

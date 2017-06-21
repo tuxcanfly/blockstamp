@@ -4,6 +4,8 @@ import { Switch, Link, IndexRoute, browserHistory } from 'react-router'
 
 import { PageList, PageForm, PageDetail } from './page'
 
+import css from './app.css'
+
 class App extends Component {
   render() {
     return (
