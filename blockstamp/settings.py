@@ -23,11 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("BLOCKSTAMP_SECRET_KEY", 'q$7od+7el%uv8*=%vifcd_k+@yx%!zja=crg^u5=!sft8pqkwx')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("BLOCKSTAMP_DEBUG", True)
+DEBUG = bool(os.environ.get("BLOCKSTAMP_DEBUG"))
 
-ALLOWED_HOSTS = os.environ.get("BLOCKSTAMP_ALLOWED_HOSTS", [])
+ALLOWED_HOSTS = []
 
-STATICFILES_ROOT = os.environ.get("BLOCKSTAMP_STATICFILES_ROOT", "")
+ALLOWED_HOSTS.append(os.environ.get("BLOCKSTAMP_ALLOWED_HOSTS"))
+
+STATIC_ROOT = os.environ.get("BLOCKSTAMP_STATIC_ROOT")
 
 # Application definition
 
