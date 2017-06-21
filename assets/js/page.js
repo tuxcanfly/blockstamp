@@ -30,7 +30,7 @@ class PageForm extends React.Component {
             data: data
         })
         .done(function(data) {
-            document.location = "/#/page/" + data.id;
+            document.location = "#/page/" + data.id;
         })
         .fail(function(jqXhr) {
             console.log('failed to register');
@@ -44,7 +44,7 @@ class PageForm extends React.Component {
                     <fieldset id="forms__html5">
                         <legend>New Page</legend>
                         <p>
-                            <label for="url">URL</label>
+                            <label htmlFor="url">URL</label>
                             <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" size="80" />
                         </p>
                         <p><button type="submit">Stamp</button></p>
@@ -81,7 +81,7 @@ class PageList extends React.Component {
             var pageNodes = this.state.data.map(function(page){
                 return (
                     <li key={page.id}>
-                        <Link to={`/page/${page.id}`}>{page.title}</Link>
+                        <Link to={`page/${page.id}`}>{page.title}</Link>
                     </li>
                 )
             })
@@ -92,7 +92,7 @@ class PageList extends React.Component {
                 <p>
                     BlockStamp timestamps a url archive using the blockchain.
                 </p>
-                <PageForm url="/api/pages/" />
+                <PageForm url="api/pages/" />
                 <h1>Recently confirmed</h1>
                 <ul>
                     {pageNodes}
@@ -110,7 +110,7 @@ class PageDetail extends React.Component {
 
     loadPageFromServer() {
         $.ajax({
-            url: '/api/pages/' + this.props.match.params.id + '/',
+            url: 'api/pages/' + this.props.match.params.id + '/',
             datatype: 'json',
             cache: false,
             success: function(data) {
