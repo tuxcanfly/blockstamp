@@ -1,4 +1,0 @@
-[run]
-include =
-    archiveis/__init__.py
-    archiveis/api.py

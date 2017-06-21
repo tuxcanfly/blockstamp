@@ -4,10 +4,16 @@ import sys
 
 import logging
 
-from lxml.html import fromstring
+from urllib.parse import urlsplit
+
+import requests
+
+from lxml.html import fromstring, tostring
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+
 from stamper.models import WebPage
 
 from opentimestamps.core.timestamp import DetachedTimestampFile, make_merkle_tree
@@ -15,8 +21,6 @@ from opentimestamps.core.serialize import StreamSerializationContext
 from opentimestamps.core.op import OpAppend, OpSHA256
 from opentimestamps.cmds import create_timestamp
 from opentimestamps.args import parse_ots_args
-
-from archiveis import archiveis
 
 ots_args = ['stamp', ]
 
@@ -36,7 +40,7 @@ def stamp_command(fd):
     try:
         file_timestamp = DetachedTimestampFile.from_fd(OpSHA256(), fd)
     except OSError as exp:
-        logger.error("Could not read :%s" % exp)
+        logging.error("Could not read %r: %s" % (fd.name, exp))
         return
 
     # Add nonce
@@ -48,11 +52,9 @@ def stamp_command(fd):
     create_timestamp(merkle_tip, calendar_urls, parse_ots_args(ots_args))
 
     try:
-        with io.BytesIO() as timestamp_fd:
+        with open("%s.ots" % fd.name, "wb") as timestamp_fd:
             ctx = StreamSerializationContext(timestamp_fd)
             file_timestamp.serialize(ctx)
-            timestamp_fd.seek(0)
-            return timestamp_fd.read()
     except IOError as exp:
         logger.error("Failed to create timestamp: %s" % exp)
         return
@@ -61,19 +63,22 @@ def stamp_command(fd):
 @receiver(post_save, sender=WebPage)
 def page_save_handler(sender, instance, created, **kwargs):
     if created:
-        try:
-            url, body = archiveis.capture(instance.url)
-            instance.title = fromstring(body.content).findtext('.//title')
-            instance.body = body.content
+        response = requests.get(instance.url)
+        body = fromstring(response.content)
+        instance.title = body.findtext('.//title')
 
-            with io.BytesIO() as fd:
-                fd.write(body.content)
-                fd.seek(0)
-                ts = stamp_command(fd)
+        base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(instance.url))
+        body.make_links_absolute(base_url)
+        content = tostring(body)
 
-            if ts != None:
-                instance.signature = ts
+        html_file_dir = "%s/%s/%s" % (settings.MEDIA_ROOT,
+                settings.HTML_FILES, instance.id)
+        os.mkdir(html_file_dir)
+        html_file_name = "%s/%s.html" % (html_file_dir, instance.id)
 
-        except Exception as e:
-            logger.error("Failed to stamp url %s: %s" % (instance.url, e))
+        with open(html_file_name, "a+b") as html_file:
+            html_file.write(content)
+            html_file.seek(0)
+            stamp_command(html_file)
+
         instance.save()

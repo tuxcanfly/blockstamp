@@ -29,7 +29,15 @@ ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS.append(os.environ.get("BLOCKSTAMP_ALLOWED_HOSTS"))
 
-STATIC_ROOT = os.environ.get("BLOCKSTAMP_STATIC_ROOT")
+STATIC_ROOT = os.environ.get("BLOCKSTAMP_STATIC_ROOT", os.path.join(BASE_DIR, "static"))
+
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.environ.get("BLOCKSTAMP_MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
+
+MEDIA_URL = os.environ.get("BLOCKSTAMP_MEDIA_URL", "/media/")
+
+HTML_FILES = "html"
 
 # Application definition
 
@@ -126,8 +134,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

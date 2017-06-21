@@ -1,8 +1,0 @@
-six
-requests
-click
-
-flake8
-coverage
-coveralls
-twine

@@ -12,8 +12,6 @@ class WebPage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, null=True, blank=True, default="")
     url = models.URLField()
-    body = models.TextField()
-    signature = models.BinaryField()
     status = models.IntegerField(default=0, choices=STATUSES)
 
     class Meta:

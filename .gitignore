@@ -3,3 +3,4 @@ webpack-stats.json
 assets/bundles
 npm-debug.log
 static
+media
