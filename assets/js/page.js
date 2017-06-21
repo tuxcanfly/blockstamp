@@ -152,9 +152,11 @@ class PageDetail extends React.Component {
                 <br />
                 <a href={page.url} rel="nofollow" target="_blank">{page.url}</a>
                 <br />
-                <button onClick={  ()=> { this.save(page.body, page.id+".html") } }>Download</button>
+                <button onClick={  ()=> { this.save(page.body, page.id+".html") } }>Download File</button>
                 <br />
-                <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download signature</a>
+                <a download={`${page.id}.html.ots`} href={`data:application/octet-stream;base64,${page.signature}`}>Download Timestamp</a>
+                <br />
+                <span>This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.</span>
                 <iframe id="iframe" height="900px" width="100%" srcDoc={page.body} />
             </div>
         )

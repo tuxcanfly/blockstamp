@@ -68,6 +68,7 @@ def page_save_handler(sender, instance, created, **kwargs):
 
             with io.BytesIO() as fd:
                 fd.write(body.content)
+                fd.seek(0)
                 ts = stamp_command(fd)
 
             if ts != None:
