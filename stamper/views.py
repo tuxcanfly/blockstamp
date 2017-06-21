@@ -12,7 +12,7 @@ from stamper.serializers import WebPageSerializer
 @api_view(['GET', 'POST'])
 def page_list(request):
     if request.method == 'GET':
-        pages = WebPage.objects.all()
+        pages = WebPage.objects.filter(status=1).order_by('-created')[:10]
         serializer = WebPageSerializer(pages, many=True)
         return Response(serializer.data)
 

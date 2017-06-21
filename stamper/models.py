@@ -10,7 +10,7 @@ class WebPage(models.Model):
     )
 
     created = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100, blank=True, default="")
+    title = models.CharField(max_length=100, null=True, blank=True, default="")
     url = models.URLField()
     body = models.TextField()
     signature = models.BinaryField()
@@ -18,6 +18,7 @@ class WebPage(models.Model):
 
     class Meta:
         ordering = ('created',)
+        get_latest_by = "created"
 
     def __str__(self):
         return self.url
