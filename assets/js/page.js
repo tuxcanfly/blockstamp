@@ -50,7 +50,7 @@ class PageForm extends React.Component {
                         <div className="large-12 columns">
                             <fieldset>
                                 <legend>Enter a URL</legend>
-                                <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" />
+                                <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} required placeholder="http://www.example.com" />
                                 <button type="submit" className="large button">Archive and Stamp</button>
                             </fieldset>
                         </div>
