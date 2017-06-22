@@ -25,8 +25,7 @@ def page_save_handler(sender, instance, created, **kwargs):
         body = fromstring(response.content)
         instance.title = body.findtext('.//title')
 
-        base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(instance.url))
-        body.make_links_absolute(base_url)
+        body.make_links_absolute(instance.url)
         content = tostring(body)
 
         html_file_dir = "%s/%s/%s" % (settings.MEDIA_ROOT,
