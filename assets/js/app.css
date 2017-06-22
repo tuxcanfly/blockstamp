@@ -167,4 +167,5 @@ label, legend, fieldset {
 #iframe {
     height: 900px;
     width: 100%;
+    pointer-events: none;
 }
