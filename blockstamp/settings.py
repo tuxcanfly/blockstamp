@@ -41,6 +41,7 @@ BITCOIN_PARAMS = os.environ.get("BLOCKSTAMP_BITCOIN_PARAMS", "testnet")
 
 BITCOIN_NODE = os.environ.get("BLOCKSTAMP_BITCOIN_NODE", "http://user:pass@127.0.0.1:18332")
 
+BITCOIN_FEE = float(os.environ.get("BLOCKSTAMP_BITCOIN_FEE", "0.005"))
 
 HTML_FILES = "html"
 
