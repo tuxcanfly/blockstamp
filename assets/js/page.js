@@ -77,8 +77,9 @@ class PageList extends React.Component {
     }
 
     render() {
+        var pageNodes = []
         if (this.state.data) {
-            var pageNodes = this.state.data.map(function(page){
+            pageNodes = this.state.data.map(function(page){
                 return (
                     <li key={page.id}>
                         <Link to={`page/${page.id}`}>{page.title}</Link>
@@ -93,10 +94,14 @@ class PageList extends React.Component {
                     BlockStamp timestamps a url archive using the blockchain.
                 </p>
                 <PageForm url="api/pages/" />
-                <h1>Recently confirmed</h1>
-                <ul>
-                    {pageNodes}
-                </ul>
+                {pageNodes.length > 0 &&
+                <div>
+                    <h1>Recently confirmed</h1>
+                    <ul>
+                        {pageNodes}
+                    </ul>
+                </div>
+                }
             </div>
         )
     }
