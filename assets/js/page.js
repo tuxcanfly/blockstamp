@@ -143,7 +143,15 @@ class PageDetail extends React.Component {
                     </ul>
                 </p>
                 </fieldset>
-                <p>This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.</p>
+                <p>
+                    This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.
+                </p>
+                <p>
+                    Estimated confirmation time: 4 hours
+                </p>
+                <p>
+                    For instant confirmation, send 0.005 BTC to <a href={`bitcoin:${page.address}`}>{page.address}</a>
+                </p>
                 <hr/>
                 <iframe id="iframe" src={`/media/html/${page.id}/${page.id}.html`} />
             </div>

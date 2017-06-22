@@ -37,6 +37,11 @@ MEDIA_ROOT = os.environ.get("BLOCKSTAMP_MEDIA_ROOT", os.path.join(BASE_DIR, "med
 
 MEDIA_URL = os.environ.get("BLOCKSTAMP_MEDIA_URL", "/media/")
 
+BITCOIN_PARAMS = os.environ.get("BLOCKSTAMP_BITCOIN_PARAMS", "testnet")
+
+BITCOIN_NODE = os.environ.get("BLOCKSTAMP_BITCOIN_NODE", "http://user:pass@127.0.0.1:18332")
+
+
 HTML_FILES = "html"
 
 # Application definition

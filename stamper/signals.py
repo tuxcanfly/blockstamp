@@ -6,6 +6,7 @@ import logging
 
 from urllib.parse import urlsplit
 
+import bitcoin
 import requests
 
 from lxml.html import fromstring, tostring
@@ -22,9 +23,7 @@ from opentimestamps.core.op import OpAppend, OpSHA256
 from opentimestamps.cmds import create_timestamp
 from opentimestamps.args import parse_ots_args
 
-ots_args = ['stamp', ]
-
-calendar_urls = [
+CALENDAR_URLS = [
         'https://a.pool.opentimestamps.org',
         'https://b.pool.opentimestamps.org',
         'https://a.pool.eternitywall.com',
@@ -33,7 +32,7 @@ calendar_urls = [
 logger = logging.getLogger(__name__)
 
 
-def stamp_command(fd):
+def stamp_command(fd, args):
     # Create initial commitment ops for all files
     merkle_roots = []
 
@@ -49,7 +48,7 @@ def stamp_command(fd):
     merkle_roots.append(merkle_root)
     merkle_tip = make_merkle_tree(merkle_roots)
 
-    create_timestamp(merkle_tip, calendar_urls, parse_ots_args(ots_args))
+    create_timestamp(merkle_tip, CALENDAR_URLS, parse_ots_args(args))
 
     try:
         with open("%s.ots" % fd.name, "wb") as timestamp_fd:
@@ -79,6 +78,10 @@ def page_save_handler(sender, instance, created, **kwargs):
         with open(html_file_name, "a+b") as html_file:
             html_file.write(content)
             html_file.seek(0)
-            stamp_command(html_file)
+            stamp_command(html_file, ['stamp', ])
+
+        bitcoin.SelectParams(settings.BITCOIN_PARAMS)
+        proxy = bitcoin.rpc.Proxy(settings.BITCOIN_NODE)
+        instance.address = str(proxy.getnewaddress())
 
         instance.save()

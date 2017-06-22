@@ -12,6 +12,7 @@ class WebPage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, null=True, blank=True, default="")
     url = models.URLField()
+    address = models.CharField(max_length=20, null=True, blank=True, default="")
     status = models.IntegerField(default=0, choices=STATUSES)
 
     class Meta:
