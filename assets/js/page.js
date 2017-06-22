@@ -43,22 +43,17 @@ class PageForm extends React.Component {
                 <h1>BlockStamp</h1>
                 <p>
                     BlockStamp uses the Bitcoin blockchain to create a permanent record
-                    of a web page to prove that it existed at a given time.
-                </p>
-                <p>
-                    Find out more at <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a>.
+                    of a web page, thus proving that it existed at that time.
                 </p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="row">
                         <div className="large-12 columns">
                             <fieldset>
                                 <legend>Enter a URL</legend>
-                                <p>
-                                    <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" />
-                                    <button type="submit">Archive and Stamp</button>
-                                </p>
+                                <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" />
+                                <button type="submit" className="large button">Archive and Stamp</button>
                             </fieldset>
-                    </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -93,31 +88,28 @@ class PageDetail extends React.Component {
         return (
             <div>
                 <h1>BlockStamp</h1>
+
                 <h3><a href={page.url} rel="nofollow" target="_blank">{page.title}</a></h3>
-                <fieldset>
-                <p>
-                    <label>Status: <bold>{page.status}</bold></label>
-                    <ul>
-                        <li>
-                            <a download={`${page.id}.html`} href={`/media/html/${page.id}/${page.id}.html`}>Download Web Page</a>
-                        </li>
-                        <li>
-                            <a download={`${page.id}.html.ots`} href={`/media/html/${page.id}/${page.id}.html.ots`}>Download Timestamp</a>
-                        </li>
-                    </ul>
-                </p>
-                </fieldset>
-                <p>
-                    This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.
-                </p>
-                <p>
-                    Estimated confirmation time: 4 hours
-                </p>
-                <p>
-                    For instant confirmation, send 0.005 BTC to <a href={`bitcoin:${page.address}`}>{page.address}</a>
-                </p>
+                <div className="primary callout">
+
+                    <a className="button" download={`${page.id}.html`} href={`/media/html/${page.id}/${page.id}.html`}>Download Web Page</a>
+                    <a className="button" download={`${page.id}.html.ots`} href={`/media/html/${page.id}/${page.id}.html.ots`}>Download Timestamp</a>
+
+                    <p>
+                        Status: <strong>{page.status}</strong>
+                    </p>
+                    <p>
+                        Estimated confirmation time: 4 hours
+                    </p>
+                    <p>
+                        For instant confirmation, send <code>0.005 BTC</code> to <a href={`bitcoin:${page.address}`}>{page.address}</a>
+                    </p>
+                    <p>
+                        This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.
+                    </p>
+                </div>
                 <hr/>
-                <iframe id="iframe" src={`/media/html/${page.id}/${page.id}.html`} />
+                <iframe id="iframe" height="800px" width="100%" src={`/media/html/${page.id}/${page.id}.html`} />
             </div>
         )
     }
