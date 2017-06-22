@@ -20,3 +20,9 @@ footer {
 	display: inline-block;
 	width: 100px !important;
 }
+
+#iframe {
+    height: 50em;
+    width: 100%;
+    pointer-events: none;
+}

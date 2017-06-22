@@ -109,7 +109,7 @@ class PageDetail extends React.Component {
                     </p>
                 </div>
                 <hr/>
-                <iframe id="iframe" height="800px" width="100%" src={`/media/html/${page.id}/${page.id}.html`} />
+                <iframe id="iframe" src={`/media/html/${page.id}/${page.id}.html`} />
             </div>
         )
     }
