@@ -40,70 +40,29 @@ class PageForm extends React.Component {
     render() {
         return (
             <div>
+                <h1>BlockStamp</h1>
+                <p>
+                    BlockStamp uses the Bitcoin blockchain to create a permanent record
+                    of a web page to prove that it existed at a given time.
+                </p>
+                <p>
+                    Find out more at <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a>.
+                </p>
                 <form onSubmit={this.handleSubmit}>
-                    <fieldset id="forms__html5">
-                        <legend>New Page</legend>
-                        <p>
-                            <label htmlFor="url">URL</label>
-                            <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" size="80" />
-                        </p>
-                        <p><button type="submit">Stamp</button></p>
-                    </fieldset>
+                    <div className="row">
+                        <div className="large-12 columns">
+                            <fieldset>
+                                <legend>Enter a URL</legend>
+                                <p>
+                                    <input id="url" name="url" type="url" value={this.state.url} onChange={this.handleChange} placeholder="http://www.example.com" />
+                                    <button type="submit">Archive and Stamp</button>
+                                </p>
+                            </fieldset>
+                    </div>
+                    </div>
                 </form>
             </div>
         );
-    }
-}
-
-class PageList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    loadPagesFromServer() {
-        $.ajax({
-            url: this.props.url,
-            datatype: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this)
-        })
-    }
-
-    componentDidMount() {
-        this.loadPagesFromServer();
-    }
-
-    render() {
-        var pageNodes = []
-        if (this.state.data) {
-            pageNodes = this.state.data.map(function(page){
-                return (
-                    <li key={page.id}>
-                        <Link to={`page/${page.id}`}>{page.title}</Link>
-                    </li>
-                )
-            })
-        }
-        return (
-            <div>
-                <h1>BlockStamp</h1>
-                <p>
-                    BlockStamp timestamps a url archive using the blockchain.
-                </p>
-                <PageForm url="api/pages/" />
-                {pageNodes.length > 0 &&
-                <div>
-                    <h1>Recently confirmed</h1>
-                    <ul>
-                        {pageNodes}
-                    </ul>
-                </div>
-                }
-            </div>
-        )
     }
 }
 
@@ -164,4 +123,4 @@ class PageDetail extends React.Component {
     }
 }
 
-export { PageList, PageDetail, PageForm }
+export { PageDetail, PageForm }
