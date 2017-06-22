@@ -13,6 +13,9 @@ class Command(BaseCommand):
             ots_filename = "%s/%s/%s/%s.html.ots" % (settings.MEDIA_ROOT,
                 settings.HTML_FILES, page.id, page.id)
             with open(ots_filename, "rb") as fd:
-                if verify_command(fd, None, ["verify", ots_filename]):
+                args = ['--bitcoin-node=%s' % settings.BITCOIN_NODE, 'verify', ots_filename]
+                if settings.BITCOIN_PARAMS == "testnet":
+                    args.insert(1, '--btc-testnet')
+                if verify_command(fd, None, args):
                     page.status = 1
                     page.save()
