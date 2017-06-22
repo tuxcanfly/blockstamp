@@ -148,6 +148,7 @@ REST_FRAMEWORK = {
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'media'),
 )
 
 WEBPACK_LOADER = {

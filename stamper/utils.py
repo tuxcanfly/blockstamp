@@ -1,3 +1,4 @@
+import os
 import logging
 
 from opentimestamps.core.timestamp import DetachedTimestampFile, make_merkle_tree
