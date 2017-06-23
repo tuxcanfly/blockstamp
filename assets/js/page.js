@@ -87,8 +87,6 @@ class PageDetail extends React.Component {
         var page = this.page = this.state.data;
         return (
             <div>
-                <h1>BlockStamp</h1>
-
                 <h3><a href={page.url} rel="nofollow" target="_blank">{page.title}</a></h3>
                 <div className="primary callout">
 
