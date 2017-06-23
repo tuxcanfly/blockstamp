@@ -18,7 +18,8 @@ help:
 	@echo 'Usage:                                                                 '
 	@echo '   make init                        (re)generate the web site          '
 	@echo '   make clean                       remove the generated files         '
-	@echo '   deploy                           deploy the web site via SSH        '
+	@echo '   make shell                       drop to server shell               '
+	@echo '   make deploy                      deploy the web site via SSH        '
 	@echo '                                                                       '
 
 
@@ -31,6 +32,9 @@ $(HTML):
 
 clean:
 	rm -r $(MEDIA) $(DB_FILE)
+
+shell:
+	ssh -t -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) shell_plus"
 
 deploy:
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && git pull"
