@@ -36,6 +36,11 @@ clean:
 shell:
 	ssh -t -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) shell_plus"
 
+nukedb:
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && rm -r $(MEDIA) $(DB_FILE)"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && $(MANAGE) migrate --no-input"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && mkdir -p $(HTML)"
+
 deploy:
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && git pull"
 	ssh -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) collectstatic --no-input"
