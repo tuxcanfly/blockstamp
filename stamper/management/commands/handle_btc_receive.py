@@ -24,3 +24,5 @@ class Command(BaseCommand):
                     if settings.BITCOIN_PARAMS == "testnet":
                         args.insert(1, '--btc-testnet')
                     stamp_command(html_file, args)
+                    page.status = 1
+                    page.save()
