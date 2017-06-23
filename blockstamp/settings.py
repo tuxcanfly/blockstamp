@@ -27,7 +27,7 @@ DEBUG = bool(os.environ.get("BLOCKSTAMP_DEBUG"))
 
 ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS.append(os.environ.get("BLOCKSTAMP_ALLOWED_HOSTS"))
+ALLOWED_HOSTS.append(os.environ.get("BLOCKSTAMP_ALLOWED_HOSTS", "blockstamp.merkleblock.com"))
 
 STATIC_ROOT = os.environ.get("BLOCKSTAMP_STATIC_ROOT", os.path.join(BASE_DIR, "static"))
 
@@ -39,7 +39,7 @@ MEDIA_URL = os.environ.get("BLOCKSTAMP_MEDIA_URL", "/media/")
 
 BITCOIN_PARAMS = os.environ.get("BLOCKSTAMP_BITCOIN_PARAMS", "testnet")
 
-BITCOIN_NODE = os.environ.get("BLOCKSTAMP_BITCOIN_NODE", "http://user:pass@127.0.0.1:18332")
+BITCOIN_NODE = os.environ.get("BLOCKSTAMP_BITCOIN_NODE", "")
 
 BITCOIN_FEE = float(os.environ.get("BLOCKSTAMP_BITCOIN_FEE", "0.005"))
 
