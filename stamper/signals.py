@@ -33,10 +33,14 @@ def page_save_handler(sender, instance, created, **kwargs):
         os.mkdir(html_file_dir)
         html_file_name = "%s/%s.html" % (html_file_dir, instance.id)
 
+        args = ['--bitcoin-node=%s' % settings.BITCOIN_NODE, 'stamp']
+        if settings.BITCOIN_PARAMS == "testnet":
+            args.insert(1, '--btc-testnet')
+
         with open(html_file_name, "a+b") as html_file:
             html_file.write(content)
             html_file.seek(0)
-            stamp_command(html_file, ['stamp', ])
+            stamp_command(html_file, args)
 
         bitcoin.SelectParams(settings.BITCOIN_PARAMS)
         proxy = bitcoin.rpc.Proxy(settings.BITCOIN_NODE)
