@@ -39,8 +39,7 @@ shell:
 	ssh -t -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) shell_plus"
 
 nukedb:
-	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && rm -r $(MEDIA) $(DB_FILE) $(MIGRATIONS)"
-	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && source $(VIRTUALENV)/bin/activate && $(MANAGE) makemigrations --no-input"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && rm -r $(MEDIA) $(DB_FILE)"
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && source $(VIRTUALENV)/bin/activate && $(MANAGE) migrate --no-input"
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && mkdir -p $(HTML)"
 
