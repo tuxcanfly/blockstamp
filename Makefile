@@ -44,7 +44,7 @@ nukedb:
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && mkdir -p $(HTML)"
 
 deploy:
-	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && git pull"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && git pull origin master"
 	ssh -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) collectstatic --no-input"
 	ssh -t -p $(PORT) $(USER)@$(HOST) "sudo supervisorctl restart blockstamp"
 
