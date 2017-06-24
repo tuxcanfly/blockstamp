@@ -16,6 +16,8 @@ class Command(BaseCommand):
 
         for page in WebPage.objects.filter(status=0):
             if proxy.getreceivedbyaddress(page.address) >= settings.BITCOIN_FEE:
+                page.status = 1
+                page.save()
                 html_file_dir = "%s/%s/%s" % (settings.MEDIA_ROOT,
                         settings.HTML_FILES, page.id)
                 html_file_name = "%s/%s.html" % (html_file_dir, page.id)
@@ -24,5 +26,5 @@ class Command(BaseCommand):
                     if settings.BITCOIN_PARAMS == "testnet":
                         args.insert(1, '--btc-testnet')
                     stamp_command(html_file, args)
-                    page.status = 1
+                    page.status = 2
                     page.save()

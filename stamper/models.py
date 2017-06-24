@@ -3,9 +3,11 @@ from django.db import models
 
 class WebPage(models.Model):
     PENDING = 0
-    CONFIRMED = 1
+    WAITING=1
+    CONFIRMED = 2
     STATUSES = (
         (PENDING, 'Pending'),
+        (WAITING, 'Waiting'),
         (CONFIRMED, 'Confirmed'),
     )
 
@@ -14,6 +16,7 @@ class WebPage(models.Model):
     url = models.URLField()
     address = models.CharField(max_length=20, null=True, blank=True, default="")
     status = models.IntegerField(default=0, choices=STATUSES)
+    tx = models.CharField(max_length=64, null=True, blank=True, default="")
 
     class Meta:
         ordering = ('created',)

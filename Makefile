@@ -38,6 +38,7 @@ shell:
 
 nukedb:
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && rm -r $(MEDIA) $(DB_FILE)"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && makemigrations all"
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && $(MANAGE) migrate --no-input"
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && mkdir -p $(HTML)"
 

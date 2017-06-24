@@ -10,7 +10,7 @@ class App extends Component {
       <Router>
           <Switch>
               <Route name="page_detail" path='/page/:id' component={PageDetail} />
-              <Route name="index" path='/' component={() => (<PageForm url="api/pages/" />)} />
+              <Route name="index" path='/' render={() => (<PageForm url="api/pages/" />)} />
           </Switch>
       </Router>
     )

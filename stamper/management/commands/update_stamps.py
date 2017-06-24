@@ -17,5 +17,5 @@ class Command(BaseCommand):
                 if settings.BITCOIN_PARAMS == "testnet":
                     args.insert(1, '--btc-testnet')
                 if verify_command(fd, None, args):
-                    page.status = 1
+                    page.status = 2
                     page.save()

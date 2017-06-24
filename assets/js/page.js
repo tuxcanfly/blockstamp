@@ -67,9 +67,9 @@ class PageDetail extends React.Component {
         this.state = {};
     }
 
-    loadPageFromServer() {
+    loadPageFromServer(id) {
         $.ajax({
-            url: 'api/pages/' + this.props.match.params.id + '/',
+            url: 'api/pages/' + id + '/',
             datatype: 'json',
             cache: false,
             success: function(data) {
@@ -79,7 +79,8 @@ class PageDetail extends React.Component {
     }
 
     componentDidMount() {
-        this.loadPageFromServer();
+        this.loadPageFromServer(this.props.match.params.id);
+        setInterval(() => this.loadPageFromServer(this.props.match.params.id), 10000);
     }
 
     render() {
@@ -96,9 +97,16 @@ class PageDetail extends React.Component {
                     <p>
                         Status: <strong>{page.status}</strong>
                     </p>
-                    <p>
-                        Estimated confirmation time: 4 hours
-                    </p>
+                    { (page.status != "Confirmed") &&
+                        <p>
+                            Estimated confirmation time: { (page.status == "Pending" ) ? '4 hours': '10 minutes' }
+                        </p>
+                    }
+                    { (page.status == "Waiting") &&
+                        <p>
+                            Waiting for confirmation of transaction: <code>{ page.tx }</code>
+                        </p>
+                    }
                     <p>
                         For instant confirmation, send <code>0.005 BTC</code> to <a href={`bitcoin:${page.address}`}>{page.address}</a>
                     </p>
