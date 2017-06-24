@@ -107,9 +107,11 @@ class PageDetail extends React.Component {
                             Waiting for confirmation of transaction: <code>{ page.tx }</code>
                         </p>
                     }
+                    { (page.status == "Pending") &&
                     <p>
                         For instant confirmation, send <code>0.005 BTC</code> to <a href={`bitcoin:${page.address}`}>{page.address}</a>
                     </p>
+                    }
                     <p>
                         This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.
                     </p>
