@@ -12,6 +12,7 @@ MEDIA=media
 DB_FILE=db.sqlite3
 HTML=$(MEDIA)/html
 MANAGE=$(BLOCKSTAMP)/manage.py
+STATIC=$(BLOCKSTAMP)/static
 
 help:
 	@echo 'Makefile for blockstamp website                                        '
@@ -45,6 +46,8 @@ nukedb:
 
 deploy:
 	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && git pull origin master"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && rm -rf $(STATIC)"
+	ssh -p $(PORT) $(USER)@$(HOST) "cd $(BLOCKSTAMP) && npm run build"
 	ssh -p $(PORT) $(USER)@$(HOST) "source $(VIRTUALENV)/bin/activate && $(MANAGE) collectstatic --no-input"
 	ssh -t -p $(PORT) $(USER)@$(HOST) "sudo supervisorctl restart blockstamp"
 

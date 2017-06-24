@@ -1,6 +1,6 @@
 *.sqlite3
 webpack-stats.json
-assets/bundles
+assets/dist
 npm-debug.log
 /media
 /static

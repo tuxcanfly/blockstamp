@@ -11,7 +11,7 @@ module.exports = {
     entry: './assets/js/index',
     output: {
         // where you want your compiled bundle to be stored
-        path: path.resolve('./assets/bundles'),
+        path: path.resolve('./assets/dist'),
         // naming convetion webpac should use for your files
         filename: '[name]-[hash].js'
     },

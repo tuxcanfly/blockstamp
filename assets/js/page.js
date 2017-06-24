@@ -43,7 +43,7 @@ class PageForm extends React.Component {
                 <h1>BlockStamp</h1>
                 <p>
                     BlockStamp uses the Bitcoin blockchain to create a permanent record
-                    of a web page, thus proving that it existed at that time.
+                    of a web page and gives you a foolproof timestamp to prove it's authenticity.
                 </p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="row">
