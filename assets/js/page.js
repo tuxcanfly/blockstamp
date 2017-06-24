@@ -109,7 +109,7 @@ class PageDetail extends React.Component {
                     }
                     { (page.status == "Pending") &&
                     <p>
-                        For instant confirmation, send <code>0.005 BTC</code> to <a href={`bitcoin:${page.address}`}>{page.address}</a>
+                        For instant confirmation, send <code>0.001 BTC</code> to <a href={`bitcoin:${page.address}`}>{page.address}</a>
                     </p>
                     }
                     <p>
