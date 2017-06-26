@@ -117,7 +117,7 @@ class PageDetail extends React.Component {
                     </p>
                 </div>
                 <hr/>
-                <iframe id="iframe" src={`/media/html/${page.id}/${page.id}.html`} />
+                <iframe id="iframe" sandbox="allow-same-origin allow-scripts allow-popups" src={`/media/html/${page.id}/${page.id}.html`} />
             </div>
         )
     }
