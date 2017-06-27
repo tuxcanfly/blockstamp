@@ -80,7 +80,12 @@ class PageDetail extends React.Component {
 
     componentDidMount() {
         this.loadPageFromServer(this.props.match.params.id);
-        setInterval(() => this.loadPageFromServer(this.props.match.params.id), 10000);
+        this.interval = setInterval(() => this.loadPageFromServer(this.props.match.params.id), 10000);
+    }
+
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {
