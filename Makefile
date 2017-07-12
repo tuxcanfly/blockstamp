@@ -34,7 +34,6 @@ warning:
 
 init: clean $(HTML)
 	$(MANAGE) migrate
-	@echo 'Done'
 
 $(HTML):
 	mkdir -p $(HTML)
