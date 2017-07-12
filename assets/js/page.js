@@ -27,12 +27,20 @@ class PageForm extends React.Component {
         $.ajax({
             type: 'POST',
             url: this.props.url,
+            beforeSend: function(xhr) {
+                $("form button").addClass("ffab spin fa-spinner");
+                $(".alert").addClass("hide");
+            },
             data: data
         })
         .done(function(data) {
+            $("form button").removeClass("ffab spin fa-spinner");
+            $(".alert").addClass("hide");
             document.location = "#/page/" + data.id;
         })
         .fail(function(jqXhr) {
+            $("form button").removeClass("ffab spin fa-spinner");
+            $(".alert").removeClass("hide");
             console.log('failed to register');
         });
     }

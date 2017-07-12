@@ -26,3 +26,61 @@ footer {
     width: 100%;
     pointer-events: none;
 }
+
+.ffab:not(.before):not(.after):before {
+    right: .75em;
+}
+
+.ffab {
+    overflow: hidden;
+    position: relative;
+    padding-right: 40px;
+}
+.ffab::before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1;
+    position: absolute;
+    transition: all 0.3s;
+    z-index: 2;
+}
+.ffab .ffab:hover:not(.disabled):not(.static)::after {
+    -webkit-transform: skewX(0deg) !important;
+    -ms-transform: skewX(0deg) !important;
+    transform: skewX(0deg) !important;
+    width: 0% !important;
+}
+.ffab .ffab.remove:hover:not(.disabled)::after {
+    -webkit-transform: skewX(0deg) !important;
+    -ms-transform: skewX(0deg) !important;
+    transform: skewX(0deg) !important;
+    width: 0% !important;
+}
+.ffab .ffab.cover:hover:not(.disabled)::after {
+    -webkit-transform: skewX(0deg) !important;
+    -ms-transform: skewX(0deg) !important;
+    transform: skewX(0deg) !important;
+    width: 112% !important;
+}
+.ffab.hollow::after, .ffab.bordered::after {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid currentColor;
+    content: '';
+    height: 110%;
+    position: absolute;
+    top: -5%;
+    transition: all 0.3s;
+    width: 3.6375rem;
+    z-index: 1;
+}
+.fa-spin, .ffab.spin::before {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+}
+.fa-spinner:before {
+  content: ""; 
+}
