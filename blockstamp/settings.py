@@ -37,7 +37,7 @@ MEDIA_ROOT = os.environ.get("BLOCKSTAMP_MEDIA_ROOT", os.path.join(BASE_DIR, "med
 
 MEDIA_URL = os.environ.get("BLOCKSTAMP_MEDIA_URL", "/media/")
 
-BITCOIN_PARAMS = os.environ.get("BLOCKSTAMP_BITCOIN_PARAMS", "testnet")
+BITCOIN_PARAMS = os.environ.get("BLOCKSTAMP_BITCOIN_PARAMS", "testnet" if DEBUG else "mainnet")
 
 BITCOIN_NODE = os.environ.get("BLOCKSTAMP_BITCOIN_NODE", "")
 
@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'stamper.context_processors.conf',
             ],
         },
     },
