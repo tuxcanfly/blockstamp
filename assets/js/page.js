@@ -101,12 +101,7 @@ class PageDetail extends React.Component {
         var page = this.page = this.state.data;
         return (
             <div>
-                <h3><a href={page.url} rel="nofollow" target="_blank">{page.title}</a></h3>
-                <div className="primary callout">
-
-                    <a className="button" download={`${page.id}.html`} href={`/media/html/${page.id}/${page.id}.html`}>Download Web Page</a>
-                    <a className="button" download={`${page.id}.html.ots`} href={`/media/html/${page.id}/${page.id}.html.ots`}>Download Timestamp</a>
-
+                <div className="callout secondary">
                     <p>
                         Status: <strong>{page.status}</strong>
                     </p>
@@ -128,6 +123,13 @@ class PageDetail extends React.Component {
                     <p>
                         This timestamp can be verified using <a href="https://opentimestamps.org/" target="_blank">OpenTimestamps</a> after confirmation on the blockchain.
                     </p>
+                    <div className="small button-group">
+                        <a className="button" download={`${page.id}.html`} href={`/media/html/${page.id}/${page.id}.html`}>Download Web Page</a>
+                        <a className="button" download={`${page.id}.html.ots`} href={`/media/html/${page.id}/${page.id}.html.ots`}>Download Timestamp</a>
+                    </div>
+                </div>
+                <div className="callout primary">
+                    This is an archived read-only copy of <a href={`${page.url}`} target="_blank" rel="nofollow">{page.url}</a> as it appeared on {page.created}
                 </div>
                 <hr/>
                 <iframe id="iframe" sandbox="allow-same-origin allow-scripts allow-popups" src={`/media/html/${page.id}/${page.id}.html`} />

@@ -145,7 +145,8 @@ USE_TZ = True
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DATETIME_FORMAT': '%A, %d %B %Y %I:%M%p',
 }
 
 STATICFILES_DIRS = (

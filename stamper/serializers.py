@@ -9,6 +9,7 @@ class WebPageSerializer(serializers.Serializer):
     address = serializers.CharField(required=False, allow_blank=True, max_length=20)
     status = serializers.CharField(required=False, source='get_status_display')
     tx = serializers.CharField(required=False, allow_blank=True, max_length=64)
+    created = serializers.DateTimeField(required=False)
 
     def create(self, validated_data):
         return WebPage.objects.create(**validated_data)
